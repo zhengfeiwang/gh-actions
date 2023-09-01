@@ -21,7 +21,6 @@ jobs:
           branch_name="release/${{ inputs.release_version }}"
           git checkout -b $branch_name
 
-          touch 
           sed -i "s/0.0.1/${{ inputs.release_version }}/g" _version.py
           cat _version.py
 
