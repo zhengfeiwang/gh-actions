@@ -1,0 +1,32 @@
+name: Create new branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: Release version
+        required: true
+        type: string
+
+jobs:
+  create_release_branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: create branch
+        run: |
+          set -x -e
+
+          branch_name="release/${{ inputs.release_version }}"
+          git checkout -b $branch_name
+
+          touch 
+          sed -i "s/0.0.1/${{ inputs.release_version }}/g" _version.py
+          cat _version.py
+
+          git _version.py
+          git config --global user.name 'Zhengfei Wang'
+          git config --global user.email 'wangzhengfei.chn@outlook.com'
+          git commit -m "create branch for version ${{ inputs.release_version }}"
+          git push
