@@ -28,4 +28,4 @@ jobs:
           git config --global user.name 'Zhengfei Wang'
           git config --global user.email 'wangzhengfei.chn@outlook.com'
           git commit -m "create branch for version ${{ inputs.release_version }}"
-          git push
+          git push --set-upstream origin $branch_name
