@@ -21,16 +21,21 @@ jobs:
         run: |
           set -x -e
 
-          echo "${{ github.event.client_payload.release_version }}"
+          if [ -z "${{ github.event.client_payload.release_version }}" ]; then
+            release_version="${{ inputs.release_version }}"
+          else
+            release_version="${{ github.event.client_payload.release_version }}"
+          fi
+          echo "release version: $release_version"
 
-          branch_name="release/${{ inputs.release_version }}"
+          branch_name="release/$release_version"
           git checkout -b $branch_name
 
-          sed -i "s/0.0.1/${{ inputs.release_version }}/g" _version.py
+          sed -i "s/0.0.1/$release_version/g" _version.py
           cat _version.py
 
           git add _version.py
           git config --global user.name 'Zhengfei Wang'
           git config --global user.email 'wangzhengfei.chn@outlook.com'
-          git commit -m "create branch for version ${{ inputs.release_version }}"
+          git commit -m "create branch for version $release_version"
           git push --set-upstream origin $branch_name
