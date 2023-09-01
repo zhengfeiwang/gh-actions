@@ -21,7 +21,7 @@ jobs:
         run: |
           set -x -e
 
-          echo "${{ github.event.action }}"
+          echo "${{ github.event.client_payload.release_version }}"
 
           branch_name="release/${{ inputs.release_version }}"
           git checkout -b $branch_name
