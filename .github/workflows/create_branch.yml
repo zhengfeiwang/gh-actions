@@ -24,7 +24,7 @@ jobs:
           sed -i "s/0.0.1/${{ inputs.release_version }}/g" _version.py
           cat _version.py
 
-          git _version.py
+          git add _version.py
           git config --global user.name 'Zhengfei Wang'
           git config --global user.email 'wangzhengfei.chn@outlook.com'
           git commit -m "create branch for version ${{ inputs.release_version }}"
