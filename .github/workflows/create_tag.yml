@@ -28,6 +28,7 @@ jobs:
           git add _version.py
           git config --global user.name 'Zhengfei Wang'
           git config --global user.email 'wangzhengfei.chn@outlook.com'
+          git commit -m "update version in _version.py"
           git push --set-upstream origin $branch_name
 
           git tag promptflow_$release_version
