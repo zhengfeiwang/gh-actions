@@ -18,7 +18,7 @@ jobs:
           echo ${{ github.event.pull_request.head.sha }}
           echo ${{ github.ref }}
           git status
-          git pull --no-ff origin main
+          git pull --no-ff origin main --allow-unrelated-histories
           git status
         id: merge_main
         shell: bash -el {0}
