@@ -18,6 +18,8 @@ jobs:
           echo ${{ github.event.pull_request.head.sha }}
           echo ${{ github.ref }}
           git status
+          git config --global user.name 'Zhengfei Wang'
+          git config --global user.email 'wangzhengfei.chn@outlook.com'
           git pull --no-ff origin main --allow-unrelated-histories
           git status
         id: merge_main
