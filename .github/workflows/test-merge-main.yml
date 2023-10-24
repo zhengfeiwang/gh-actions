@@ -19,7 +19,7 @@ jobs:
           echo ${{ github.ref }}
           git status
           git pull --ff-only origin main
-          git merge main
+          git merge --no-ff main
           git status
         id: merge_main
         shell: bash -el {0}
