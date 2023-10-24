@@ -1,0 +1,21 @@
+name: test-merge-main
+
+on:
+  pull_request_target:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  merge_main:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: merge main
+        run: |
+          git status
+          git fetch origin main
+          git merge origin/main
+          git status
+        id: merge_main
+        shell: bash -el {0}
