@@ -18,8 +18,7 @@ jobs:
           echo ${{ github.event.pull_request.head.sha }}
           echo ${{ github.ref }}
           git status
-          git pull --ff-only origin main
-          git merge --no-ff main
+          git pull --no-ff origin main
           git status
         id: merge_main
         shell: bash -el {0}
