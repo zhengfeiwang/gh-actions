@@ -1,7 +1,7 @@
-name: 'Close stale issues and PRs'
+name: 'Close stale issues and pull requests'
 on:
   schedule:
-    - cron: '30 1 * * *'
+    - cron: '30 21 * * *'  # 5:30 Beijing Time (GMT+8)
   workflow_dispatch:
 
 jobs:
@@ -13,14 +13,14 @@ jobs:
     steps:
       - uses: actions/stale@v8
         with:
+          # stale issue/pull request
           stale-issue-message: "Hi, we're sending this friendly reminder because we haven't heard back from you in 7 days. We need more information about this issue to help address it. Please be sure to give us your input. If we don't hear back from you within 14 days of this comment the issue will be automatically closed. Thank you!"
+          stale-issue-label: 'no-recent-activity'
           stale-pr-message: "Hi, thank you for your interest in helping to improve the prompt flow experience and for your contribution. We've noticed that there hasn't been recent engagement on this pull request. If this is still an active work stream, please let us know by pushing some changes or leaving a comment. Otherwise, we'll close this out in 7 days."
-          close-pr-message: "Hi, thank you for your contribution. Since there hasn't been recent engagement, we're going to close this out."
-          days-before-issue-stale: 0
-          days-before-pr-stale: 0
-          days-before-issue-close: 0
-          days-before-pr-close: 0
-          # days-before-issue-stale: 7
-          # days-before-pr-stale: 7
+          stale-pr-label: 'no-recent-activity'
+          days-before-issue-stale: 7
+          days-before-pr-stale: 7
+          # # close issue/pull request
+          # close-pr-message: 'Hi, thank you for your contribution. Since there hasn't been recent engagement, we're going to close this out.'
           # days-before-issue-close: 14
           # days-before-pr-close: 7
