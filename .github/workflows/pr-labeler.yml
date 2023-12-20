@@ -1,0 +1,37 @@
+name: Pull Request Labeler
+
+on: 
+  pull_request_target:
+    types: [opened, reopened]
+
+jobs:
+  labeler:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Label pull request
+      uses: actions/github-script@v5
+      with:
+        script: |
+          const { payload, github } = context;
+
+          // Check if PR is from a fork
+          if (payload.pull_request.head.repo.fork) {
+            // Add label for PRs from forks
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: payload.pull_request.number,
+              labels: ['fork']
+            });
+          } else {
+            // Add label for internal PRs
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: payload.pull_request.number,
+              labels: ['internal']
+            });
+          }
