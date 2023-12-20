@@ -9,26 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Label pull request
-      uses: actions/github-script@v5
+      if: ${{ github.event.pull_request.head.repo.full_name != 'zhengfeiwang/gh-actions' }}
+      uses: actions/github-script@v7
       with:
         script: |
-          const { payload } = context;
-
-          // Check if PR is from a fork
-          if (payload.pull_request.head.repo.fork) {
-            // Add label for PRs from forks
-            github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: payload.pull_request.number,
-              labels: ['fork']
-            });
-          } else {
-            // Add label for internal PRs
-            github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: payload.pull_request.number,
-              labels: ['internal']
-            });
-          }
+          github.rest.issues.addLabels({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            labels: ['fork']
+          })
